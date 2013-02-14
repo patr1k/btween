@@ -1,0 +1,29 @@
+html, body {
+    padding: 15px;
+    margin: 0px;
+    background-color: #fff;
+}
+
+h1 {
+    font-family: Tahoma, Verdana, Helvetica, Arial;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 0px 0px 5px 0px;
+    padding: 0px;
+}
+
+h1 a {
+    color: #06f;
+    text-decoration: underline;
+}
+
+h2 {
+    font-family: Verdana, Helvetica, Tahoma, Arial;
+    font-size: 18px;
+    font-weight: normal;
+    color: #f06;
+    margin: 0px 0px 15px 0px;
+    padding: 0px 0px 10px 0px;
+    border-bottom: 1px dotted #ccc;
+}

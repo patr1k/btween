@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cubic Curve - BTWEEN Examples</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/example.css" />
+        <script type="text/javascript" src="js/RequestAnimationFrame.js"></script>
+        <script type="text/javascript" src="../build/btween.min.js"></script>
+        <script type="text/javascript">
+
+	function init() {
+
+		var output = document.createElement( 'div' );
+		output.style.cssText = 'position: absolute; left: 200px; top: 200px; font-size: 40px';
+		document.body.appendChild( output );
+
+                var startPosition = { x: 200, y: 200 };
+                var curvePoints = [
+                    { x: 200, y: 200  },
+                    { x: 500, y: 600  },
+                    { x: 500, y: -200 },
+                    { x: 800, y: 200  }
+                ];
+		var tween = new BTWEEN.Btween( startPosition )
+			.addCurve( curvePoints, 5000 )
+			.onUpdate( function () {
+
+				output.innerHTML = '{x:' + Math.round( this.x ) + ',y:' + Math.round( this.y ) + '}';
+				output.style.left = this.x + 'px';
+                                output.style.top = this.y + 'px';
+
+			} )
+			.start();
+
+                animate();
+
+	}
+
+	function animate() {
+
+		requestAnimationFrame( animate ); // js/RequestAnimationFrame.js needs to be included too.
+		BTWEEN.update();
+
+	}
+
+        </script>
+    </head>
+    <body onload="init();">
+        <h1><a href="http://github.com/patr1k/btween" target="_blank">BTWEEN.js</a> Examples</h1>
+        <h2><strong>02</strong> - <em>Cubic Curves</em></h2>
+    </body>
+</html>
