@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Btween by patr1k</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/patr1k/btween">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/patr1k/btween/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/patr1k/btween/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Btween</h1>
+          <p>Javascript Engine for Tweening Along Bézier Curves</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/patr1k">patr1k</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>btween.js</h1>
+
+<h4>Bézier TWEENing (BTWEEN) Javascript Engine</h4>
+
+<p>A quick and easy library for creating smooth animation paths along Bézier curves. It is recommended that you be <a href="http://en.wikipedia.org/wiki/B%C3%A9zier_curve">familiar with Bézier curves</a> before trying to use the library.</p>
+
+<h3>Usage</h3>
+
+<p>Download the minified library and include it in your html.</p>
+
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/btween.min.js"</span> <span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<p>The following code creates a Bézier path which a div block will travel along. The path anchors are specified in the addCurve method, and the onUpdate callback function will fire every time the [x,y] values changes.</p>
+
+<div class="highlight"><pre><span class="nt">&lt;script&gt;</span>
+
+        <span class="c1">// Call init() when document body is loaded</span>
+        <span class="c1">// jQuery: $(document).ready(init);</span>
+        <span class="c1">// HTML: &lt;body onload="init();"&gt;</span>
+
+        <span class="c1">// Must include RequestAnimationFrame.js</span>
+        <span class="c1">// http://paulirish.com/2011/requestanimationframe-for-smart-animating/</span>
+
+    <span class="kd">function</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="s1">'div'</span> <span class="p">);</span>
+        <span class="nx">output</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span> <span class="o">=</span> <span class="s1">'position: absolute; left: 200px; top: 200px; font-size: 40px'</span><span class="p">;</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">output</span> <span class="p">);</span>
+
+                <span class="kd">var</span> <span class="nx">startPosition</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">200</span> <span class="p">};</span>
+                <span class="kd">var</span> <span class="nx">curvePoints</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">200</span>  <span class="p">},</span>
+                    <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">600</span>  <span class="p">},</span>
+                    <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="o">-</span><span class="mi">200</span> <span class="p">},</span>
+                    <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">800</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">200</span>  <span class="p">}</span>
+                <span class="p">];</span>
+        <span class="kd">var</span> <span class="nx">tween</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BTWEEN</span><span class="p">.</span><span class="nx">Btween</span><span class="p">(</span> <span class="nx">startPosition</span> <span class="p">)</span>
+            <span class="p">.</span><span class="nx">addCurve</span><span class="p">(</span> <span class="nx">curvePoints</span><span class="p">,</span> <span class="mi">5000</span> <span class="p">)</span>
+            <span class="p">.</span><span class="nx">onUpdate</span><span class="p">(</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+                <span class="nx">output</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">'{x:'</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="p">)</span> <span class="o">+</span> <span class="s1">',y:'</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="p">)</span> <span class="o">+</span> <span class="s1">'}'</span><span class="p">;</span>
+                <span class="nx">output</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="s1">'px'</span><span class="p">;</span>
+                                <span class="nx">output</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="s1">'px'</span><span class="p">;</span>
+
+            <span class="p">}</span> <span class="p">)</span>
+            <span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+
+                <span class="nx">animate</span><span class="p">();</span>
+
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">animate</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="nx">requestAnimationFrame</span><span class="p">(</span> <span class="nx">animate</span> <span class="p">);</span>
+        <span class="nx">BTWEEN</span><span class="p">.</span><span class="nx">update</span><span class="p">();</span>
+
+    <span class="p">}</span>
+
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<p>A tutorial and set of documentation is in the works. Please be patient!</p>
+
+<h3>FAQ</h3>
+
+<p><strong>Why is this the only answer?</strong></p>
+
+<p>No one has asked any questions yet!</p>
+
+<h3>Change log</h3>
+
+<p>2013 02 14 - <strong>r0</strong></p>
+
+<ul>
+<li>Initial commit (<a href="https://github.com/patr1k">patr1k</a>)</li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
