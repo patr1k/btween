@@ -3,7 +3,7 @@ btween.js
 
 #### Bézier TWEENing (BTWEEN) Javascript Engine ####
 
-A quick and easy library for creating smooth animation paths along Bézier curves. It is recommended that you be (familiar with Bézier curves) [http://en.wikipedia.org/wiki/B%C3%A9zier_curve] before trying to use the library.
+A quick and easy library for creating smooth animation paths along Bézier curves. It is recommended that you be ([familiar with Bézier curves](http://en.wikipedia.org/wiki/B%C3%A9zier_curve)) before trying to use the library.
 
 ### Usage ###
 
